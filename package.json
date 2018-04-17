@@ -1,5 +1,5 @@
 {
-  "name": "@public/router-task-firebase",
+  "name": "@scvo/router-task-firebase",
   "version": "0.0.1",
   "description": "SCVO=>Router tasks for Firebase stuff",
   "main": "./build/index",
