@@ -54,7 +54,8 @@ var FirebaseAuthRouterTask = /** @class */ (function (_super) {
         _this.name = 'firebase-auth';
         _this.apps = {};
         Object.keys(appConfigurations).forEach(function (appName) {
-            _this.apps[appName] = firebase.initializeApp(appConfigurations[appName], appName);
+            _this.apps[appName] =
+                firebase.initializeApp(appConfigurations[appName], appName);
         });
         return _this;
     }

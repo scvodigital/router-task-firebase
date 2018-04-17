@@ -55,19 +55,41 @@ var FirebaseGetDataRouterTask = /** @class */ (function (_super) {
         _this.name = 'firebase-get-data';
         _this.apps = {};
         Object.keys(appConfigurations).forEach(function (appName) {
-            _this.apps[appName] = firebase.initializeApp(appConfigurations[appName], appName);
+            _this.apps[appName] =
+                firebase.initializeApp(appConfigurations[appName], appName);
         });
         return _this;
     }
     /* tslint:disable:no-any */
     FirebaseGetDataRouterTask.prototype.execute = function (routeMatch, task) {
         return __awaiter(this, void 0, void 0, function () {
+            var config, pathCompiled, path, app, snapshot;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        config = task.config;
+                        pathCompiled = hbs.compile(config.pathTemplate);
+                        path = pathCompiled(routeMatch);
+                        app = this.apps[config.appName];
+                        return [4 /*yield*/, app.database().ref(path).once('value')];
+                    case 1:
+                        snapshot = _a.sent();
+                        if (snapshot.exists()) {
+                            return [2 /*return*/, snapshot.val()];
+                        }
+                        else if (config.defaultData) {
+                            return [2 /*return*/, config.defaultData];
+                        }
+                        else {
+                            throw new Error('Failed to load data at: ' + path);
+                        }
+                        return [2 /*return*/];
+                }
             });
         });
     };
     return FirebaseGetDataRouterTask;
 }(router_1.RouterTask));
 exports.FirebaseGetDataRouterTask = FirebaseGetDataRouterTask;
+/* tslint:enable:no-any */
 //# sourceMappingURL=get-data.js.map

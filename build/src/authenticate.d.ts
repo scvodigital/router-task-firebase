@@ -1,6 +1,6 @@
 import { RouteMatch, RouterTask, RouteTaskConfiguration } from '@scvo/router';
-import { FirebaseApps, FirebaseAppConfigurations } from './interfaces';
 import * as firebase from 'firebase-admin';
+import { FirebaseAppConfigurations, FirebaseApps } from './interfaces';
 export declare class FirebaseAuthRouterTask extends RouterTask {
     name: string;
     apps: FirebaseApps;
