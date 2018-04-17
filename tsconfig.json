@@ -11,6 +11,8 @@
     "test/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "node_modules/@google-cloud/firestore/types/firestore.d.ts",
+    "node_modules/@firebase-admin/lib/index.d.ts"
   ]
 }
