@@ -26,10 +26,13 @@
   },
   "homepage": "https://github.com/scvodigital/router-task-firebase#readme",
   "devDependencies": {
+    "@types/node": "^9.6.5",
     "gts": "^0.5.4",
     "typescript": "~2.6.1"
   },
   "dependencies": {
-    "@scvo/router": "^1.1.7"
+    "@scvo/router": "^1.1.7",
+    "clayhandlebars": "^4.0.0",
+    "firebase-admin": "^5.12.0"
   }
 }

@@ -47,59 +47,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@scvo/router");
 var firebase = require("firebase-admin");
-var FirebaseAuthRouterTask = /** @class */ (function (_super) {
-    __extends(FirebaseAuthRouterTask, _super);
-    function FirebaseAuthRouterTask(appConfigurations) {
+var hbs = require('clayhandlebars')();
+var FirebaseGetDataRouterTask = /** @class */ (function (_super) {
+    __extends(FirebaseGetDataRouterTask, _super);
+    function FirebaseGetDataRouterTask(appConfigurations) {
         var _this = _super.call(this) || this;
-        _this.name = 'firebase-auth';
+        _this.name = 'firebase-get-data';
         _this.apps = {};
         Object.keys(appConfigurations).forEach(function (appName) {
             _this.apps[appName] = firebase.initializeApp(appConfigurations[appName], appName);
         });
         return _this;
     }
-    FirebaseAuthRouterTask.prototype.execute = function (routeMatch, task) {
+    /* tslint:disable:no-any */
+    FirebaseGetDataRouterTask.prototype.execute = function (routeMatch, task) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, idToken, app, decodedToken, user;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        config = task.config;
-                        if (!routeMatch.request.cookies.hasOwnProperty(config.cookie)) {
-                            throw new router_1.RouteTaskError(new Error('No authentication token provided'), {
-                                data: null,
-                                redirectTo: config.noCookieRoute,
-                                sourceRoute: routeMatch,
-                                statusCode: 403,
-                                task: task
-                            });
-                        }
-                        idToken = routeMatch.request.cookies[config.cookie];
-                        app = this.apps[config.appName];
-                        return [4 /*yield*/, app.auth().verifyIdToken(idToken)];
-                    case 1:
-                        decodedToken = _a.sent();
-                        if (!decodedToken) {
-                            throw new router_1.RouteTaskError(new Error('Failed to verify token'), {
-                                data: null,
-                                redirectTo: config.notAuthenticatedRoute,
-                                sourceRoute: routeMatch,
-                                statusCode: 403,
-                                task: task
-                            });
-                        }
-                        return [4 /*yield*/, app.auth().getUser(decodedToken.uid)];
-                    case 2:
-                        user = _a.sent();
-                        if (!user) {
-                            throw new Error('Failed to get user ' + decodedToken.uid);
-                        }
-                        return [2 /*return*/, user];
-                }
+                return [2 /*return*/];
             });
         });
     };
-    return FirebaseAuthRouterTask;
+    return FirebaseGetDataRouterTask;
 }(router_1.RouterTask));
-exports.FirebaseAuthRouterTask = FirebaseAuthRouterTask;
-//# sourceMappingURL=authenticate.js.map
+exports.FirebaseGetDataRouterTask = FirebaseGetDataRouterTask;
+//# sourceMappingURL=get-data.js.map
