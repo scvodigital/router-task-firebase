@@ -9,15 +9,13 @@ export class FirebaseAuthRouterTask extends RouterTask {
 
   constructor(appConfigurations: FirebaseAppConfigurations) {
     super();
-    const existing: string[] = firebase.apps.map((app: firebase.app.App | null) => { 
+    firebase.apps.forEach((app: firebase.app.App | null) => { 
       if (app) {
-        return app.name;
-      } else { 
-        return 'not-an-app';
+        this.apps[app.name] = app;
       }
     });
     Object.keys(appConfigurations).forEach(appName => {
-      if (existing.indexOf(appName) === -1) {
+      if (!this.apps.hasOwnProperty(appName)) {
         this.apps[appName] =
           firebase.initializeApp(appConfigurations[appName], appName);
       }
