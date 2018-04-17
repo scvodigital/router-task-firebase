@@ -1,0 +1,35 @@
+{
+  "name": "@public/router-task-firebase",
+  "version": "0.0.1",
+  "description": "SCVO=>Router tasks for Firebase stuff",
+  "main": "./build/index",
+  "typings": "./build/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scvodigital/router-task-firebase.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scvodigital/router-task-firebase/issues"
+  },
+  "homepage": "https://github.com/scvodigital/router-task-firebase#readme",
+  "devDependencies": {
+    "gts": "^0.5.4",
+    "typescript": "~2.6.1"
+  },
+  "dependencies": {
+    "@scvo/router": "^1.1.7"
+  }
+}
