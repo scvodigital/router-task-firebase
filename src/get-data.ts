@@ -41,8 +41,11 @@ export class FirebaseGetDataRouterTask extends RouterTask {
     const snapshot: firebase.database.DataSnapshot =
         await app.database().ref(path).once('value');
     if (snapshot.exists()) {
-      return snapshot.val();
+      const data = snapshot.val();
+      console.log('Got actual data from:', path, '\n', JSON.stringify(data, null, 4));
+      return data;
     } else if (config.defaultData) {
+      console.log('Using default data as no data found at:', path, '\n', JSON.stringify(config.defaultData, null, 4));
       return config.defaultData;
     } else {
       throw new Error('Failed to load data at: ' + path);
