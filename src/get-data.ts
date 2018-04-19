@@ -21,7 +21,9 @@ export class FirebaseGetDataRouterTask extends RouterTask {
         var config = appConfigurations[appName];
         this.apps[appName] =
           firebase.initializeApp({
-            credential: firebase.credential.cert(config.credential),
+            credential: firebase.credential.cert(
+              (config.credential as firebase.ServiceAccount)
+            ),
             databaseURL: config.databaseURL
           }, appName);
       }
