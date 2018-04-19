@@ -35,7 +35,9 @@ export class FirebaseSetDataRouterTask extends RouterTask {
       Promise<any> {
     const config: FirebaseSetDataConfiguration =
         (task.config as FirebaseSetDataConfiguration);
+    console.log('pathTemplate:', config.pathTemplate);
     const pathCompiled = hbs.compile(config.pathTemplate);
+    console.log('dataTemplate:', config.dataTemplate);
     const dataCompiled = hbs.compile(config.dataTemplate);
     const path = pathCompiled(routeMatch);
     const dataString = dataCompiled(routeMatch);
