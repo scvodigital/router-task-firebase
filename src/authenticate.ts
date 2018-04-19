@@ -57,6 +57,7 @@ export class FirebaseAuthRouterTask extends RouterTask {
     if (!user) {
       throw new Error('Failed to get user ' + decodedToken.uid);
     }
+    console.log('User Data:', user);
     return user;
   }
 }

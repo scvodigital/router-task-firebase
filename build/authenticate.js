@@ -106,6 +106,7 @@ var FirebaseAuthRouterTask = /** @class */ (function (_super) {
                         if (!user) {
                             throw new Error('Failed to get user ' + decodedToken.uid);
                         }
+                        console.log('User Data:', user);
                         return [2 /*return*/, user];
                 }
             });
