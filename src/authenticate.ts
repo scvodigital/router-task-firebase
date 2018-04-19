@@ -16,8 +16,12 @@ export class FirebaseAuthRouterTask extends RouterTask {
     });
     Object.keys(appConfigurations).forEach(appName => {
       if (!this.apps.hasOwnProperty(appName)) {
+        var config = appConfigurations[appName];
         this.apps[appName] =
-          firebase.initializeApp(appConfigurations[appName], appName);
+          firebase.initializeApp({
+            credential: firebase.credential.cert(config.credential),
+            databaseURL: config.databaseURL
+          }, appName);
       }
     });
   }

@@ -3,9 +3,7 @@ export interface FirebaseAppConfigurations {
     [name: string]: FirebaseAppConfiguration;
 }
 export interface FirebaseAppConfiguration {
-    projectId: string;
-    clientEmail: string;
-    privateKey: string;
+    credential: firebase.ServiceAccount;
     databaseURL: string;
 }
 export interface FirebaseApps {

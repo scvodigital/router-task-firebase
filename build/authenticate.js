@@ -60,8 +60,12 @@ var FirebaseAuthRouterTask = /** @class */ (function (_super) {
         });
         Object.keys(appConfigurations).forEach(function (appName) {
             if (!_this.apps.hasOwnProperty(appName)) {
+                var config = appConfigurations[appName];
                 _this.apps[appName] =
-                    firebase.initializeApp(appConfigurations[appName], appName);
+                    firebase.initializeApp({
+                        credential: firebase.credential.cert(config.credential),
+                        databaseURL: config.databaseURL
+                    }, appName);
             }
         });
         return _this;

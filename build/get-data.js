@@ -54,9 +54,20 @@ var FirebaseGetDataRouterTask = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.name = 'firebase-get-data';
         _this.apps = {};
+        firebase.apps.forEach(function (app) {
+            if (app) {
+                _this.apps[app.name] = app;
+            }
+        });
         Object.keys(appConfigurations).forEach(function (appName) {
-            _this.apps[appName] =
-                firebase.initializeApp(appConfigurations[appName], appName);
+            if (!_this.apps.hasOwnProperty(appName)) {
+                var config = appConfigurations[appName];
+                _this.apps[appName] =
+                    firebase.initializeApp({
+                        credential: firebase.credential.cert(config.credential),
+                        databaseURL: config.databaseURL
+                    }, appName);
+            }
         });
         return _this;
     }

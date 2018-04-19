@@ -11,9 +11,20 @@ export class FirebaseGetDataRouterTask extends RouterTask {
 
   constructor(appConfigurations: FirebaseAppConfigurations) {
     super();
+    firebase.apps.forEach((app: firebase.app.App | null) => { 
+      if (app) {
+        this.apps[app.name] = app;
+      }
+    });
     Object.keys(appConfigurations).forEach(appName => {
-      this.apps[appName] =
-          firebase.initializeApp(appConfigurations[appName], appName);
+      if (!this.apps.hasOwnProperty(appName)) {
+        var config = appConfigurations[appName];
+        this.apps[appName] =
+          firebase.initializeApp({
+            credential: firebase.credential.cert(config.credential),
+            databaseURL: config.databaseURL
+          }, appName);
+      }
     });
   }
 
