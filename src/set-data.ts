@@ -40,6 +40,7 @@ export class FirebaseSetDataRouterTask extends RouterTask {
     console.log('dataTemplate:', config.dataTemplate);
     const dataCompiled = hbs.compile(config.dataTemplate);
     const path = pathCompiled(routeMatch);
+    console.log('routeMatch.data:', JSON.stringify(routeMatch.data, null, 4));
     const dataString = dataCompiled(routeMatch);
     const data = config.parseJson ? JSON.parse(dataString) : dataString;
 
