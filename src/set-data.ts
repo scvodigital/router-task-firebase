@@ -6,7 +6,7 @@ import {FirebaseAppConfiguration, FirebaseAppConfigurations, FirebaseApps} from 
 const hbs = require('clayhandlebars')();
 
 export class FirebaseSetDataRouterTask extends RouterTask {
-  name = 'firebase-get-data';
+  name = 'firebase-set-data';
   apps: FirebaseApps = {};
 
   constructor(appConfigurations: FirebaseAppConfigurations) {
