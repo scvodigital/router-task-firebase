@@ -14,6 +14,7 @@
     "pretest": "npm run compile",
     "posttest": "npm run check",
     "local": "npm link @scvo/router && npm run compile && npm link",
+    "pub-patch": "yarn add -E @scvo/router; nuup patch"
   },
   "repository": {
     "type": "git",

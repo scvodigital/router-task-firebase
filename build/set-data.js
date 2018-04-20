@@ -48,11 +48,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@scvo/router");
 var firebase = require("firebase-admin");
 var hbs = require('clayhandlebars')();
-var FirebaseGetDataRouterTask = /** @class */ (function (_super) {
-    __extends(FirebaseGetDataRouterTask, _super);
-    function FirebaseGetDataRouterTask(appConfigurations) {
+var FirebaseSetDataRouterTask = /** @class */ (function (_super) {
+    __extends(FirebaseSetDataRouterTask, _super);
+    function FirebaseSetDataRouterTask(appConfigurations) {
         var _this = _super.call(this) || this;
-        _this.name = 'firebase-get-data';
+        _this.name = 'firebase-set-data';
         _this.apps = {};
         firebase.apps.forEach(function (app) {
             if (app) {
@@ -72,38 +72,40 @@ var FirebaseGetDataRouterTask = /** @class */ (function (_super) {
         return _this;
     }
     /* tslint:disable:no-any */
-    FirebaseGetDataRouterTask.prototype.execute = function (routeMatch, task) {
+    FirebaseSetDataRouterTask.prototype.execute = function (routeMatch, task) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, pathCompiled, path, app, snapshot, data;
+            var config, pathCompiled, dataCompiled, path, dataString, data, app, response, response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         config = task.config;
+                        console.log('pathTemplate:', config.pathTemplate);
                         pathCompiled = hbs.compile(config.pathTemplate);
+                        console.log('dataTemplate:', config.dataTemplate);
+                        dataCompiled = hbs.compile(config.dataTemplate);
                         path = pathCompiled(routeMatch);
+                        console.log('routeMatch.data:', JSON.stringify(routeMatch.data, null, 4));
+                        dataString = dataCompiled(routeMatch);
+                        data = config.parseJson ? JSON.parse(dataString) : dataString;
                         app = this.apps[config.appName];
-                        return [4 /*yield*/, app.database().ref(path).once('value')];
+                        if (!(config.setOrUpdate === 'set')) return [3 /*break*/, 2];
+                        return [4 /*yield*/, app.database().ref(path).set(data)];
                     case 1:
-                        snapshot = _a.sent();
-                        if (snapshot.exists()) {
-                            data = snapshot.val();
-                            console.log('Got actual data from:', path, '\n', JSON.stringify(data, null, 4));
-                            return [2 /*return*/, data];
-                        }
-                        else if (config.defaultData) {
-                            console.log('Using default data as no data found at:', path, '\n', JSON.stringify(config.defaultData, null, 4));
-                            return [2 /*return*/, config.defaultData];
-                        }
-                        else {
-                            throw new Error('Failed to load data at: ' + path);
-                        }
-                        return [2 /*return*/];
+                        response = _a.sent();
+                        return [2 /*return*/, response];
+                    case 2:
+                        if (!(config.setOrUpdate === 'update')) return [3 /*break*/, 4];
+                        return [4 /*yield*/, app.database().ref(path).update(data)];
+                    case 3:
+                        response = _a.sent();
+                        return [2 /*return*/, response];
+                    case 4: throw new Error('Task missing "setOrUpdate" property');
                 }
             });
         });
     };
-    return FirebaseGetDataRouterTask;
+    return FirebaseSetDataRouterTask;
 }(router_1.RouterTask));
-exports.FirebaseGetDataRouterTask = FirebaseGetDataRouterTask;
+exports.FirebaseSetDataRouterTask = FirebaseSetDataRouterTask;
 /* tslint:enable:no-any */
-//# sourceMappingURL=get-data.js.map
+//# sourceMappingURL=set-data.js.map
