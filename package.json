@@ -14,7 +14,7 @@
     "pretest": "npm run compile",
     "posttest": "npm run check",
     "local": "npm link @scvo/router && npm run compile && npm link",
-    "pub-patch": "yarn add -E @scvo/router; nuup patch"
+    "pub-patch": "yarn add -E @scvo/router; git commit -a -m \"Upgraded router\"; nuup patch"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "typescript": "~2.6.1"
   },
   "dependencies": {
-    "@scvo/router": "^1.1.7",
+    "@scvo/router": "1.1.15",
     "clayhandlebars": "^4.0.0",
     "firebase-admin": "^5.12.0"
   }
